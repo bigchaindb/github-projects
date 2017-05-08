@@ -44,6 +44,14 @@ And run the server:
 npm start
 ```
 
+## Test
+
+Run the tests:
+
+```bash
+npm test
+```
+
 ## Deployment
 
 Deploy to [now](https://zeit.co/now), make sure to switch to BigchainDB org before deploying:
