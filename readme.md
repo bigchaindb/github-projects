@@ -4,6 +4,7 @@
 
 [![Build Status](https://travis-ci.org/bigchaindb/github-projects.svg?branch=master)](https://travis-ci.org/bigchaindb/github-projects)
 [![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/sindresorhus/xo)
+[![Greenkeeper badge](https://badges.greenkeeper.io/bigchaindb/github-projects.svg)](https://greenkeeper.io/)
 <img src="http://forthebadge.com/images/badges/powered-by-electricity.svg" height="20"/>
 <img src="http://forthebadge.com/images/badges/as-seen-on-tv.svg" height="20"/>
 <img src="http://forthebadge.com/images/badges/uses-badges.svg" height="20"/>
