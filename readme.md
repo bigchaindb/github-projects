@@ -1,5 +1,7 @@
 # [![github-projects](media/repo-banner@2x.png)](https://www.bigchaindb.com)
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/bigchaindb/github-projects.svg)](https://greenkeeper.io/)
+
 > Microservice to cache and expose GitHub projects for use throughout [www.bigchaindb.com](https://www.bigchaindb.com).
 
 [![Build Status](https://travis-ci.org/bigchaindb/github-projects.svg?branch=master)](https://travis-ci.org/bigchaindb/github-projects)
