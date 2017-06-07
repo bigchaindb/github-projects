@@ -1,5 +1,12 @@
 language: node_js
 node_js: node
 
+after_script:
+    - NOW_ALIAS=bigchaindb-github node_modules/.bin/now-travis
+
+branches:
+    only:
+        - master
+
 notifications:
     email: false

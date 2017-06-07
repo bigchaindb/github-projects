@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "ava": "^0.19.1",
+    "now-travis": "^1.0.0",
     "request-promise": "^4.2.1",
     "test-listen": "^1.0.2",
     "xo": "^0.18.2"
