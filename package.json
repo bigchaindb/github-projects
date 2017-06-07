@@ -27,8 +27,10 @@
     "test-listen": "^1.0.2",
     "xo": "^0.18.2"
   },
-  "alias": "bigchaindb-github.now.sh",
-  "env": {
-    "NODE_ENV": "production"
+  "now": {
+    "alias": "bigchaindb-github.now.sh",
+    "env": {
+      "NODE_ENV": "production"
+    }
   }
 }

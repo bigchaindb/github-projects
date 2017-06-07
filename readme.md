@@ -64,8 +64,8 @@ now switch
 
 # deploy
 now
-# switch alias to new deployment, e.g.
-now alias bigchaindb-github-projects-wxkyissxos bigchaindb-github
+# switch alias to new deployment
+now alias
 ```
 
 ## Authors
