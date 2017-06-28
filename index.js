@@ -6,7 +6,7 @@ let data = []
 let dataRepos = []
 let dataReleases = []
 
-const username = 'bigchaindb'
+const orgname = 'bigchaindb'
 const reponame = 'bigchaindb' // Used for fetching specific release
 
 const log = text => console.log(text)
@@ -32,7 +32,7 @@ const headers = [{
 //
 const fetchRepos = () => {
     const start = Date.now()
-    const url = 'https://api.github.com/users/' + username + '/repos'
+    const url = 'https://api.github.com/orgs/' + orgname + '/repos'
 
     fetch(url, headers)
         .then(res => {
