@@ -20,12 +20,12 @@ const handleResponse = res => {
     return res.json()
 }
 
-// Request headers for all fetch calls
-const headers = [{
+// Request options for all fetch calls
+const options = {
     headers: {
         Accept: 'application/vnd.github.preview'
     }
-}]
+}
 
 //
 // Fetch all public GitHub repos
@@ -34,7 +34,7 @@ const fetchRepos = () => {
     const start = Date.now()
     const url = 'https://api.github.com/orgs/' + orgname + '/repos'
 
-    fetch(url, headers)
+    fetch(url, options)
         .then(res => {
             return handleResponse(res)
         })
@@ -79,7 +79,7 @@ const fetchReleases = () => {
     const start = Date.now()
     const url = 'https://api.github.com/repos/bigchaindb/' + reponame + '/releases/latest'
 
-    fetch(url, headers)
+    fetch(url, options)
         .then(res => {
             return handleResponse(res)
         })
