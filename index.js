@@ -23,7 +23,9 @@ const handleResponse = res => {
 // Request options for all fetch calls
 const options = {
     headers: {
-        Accept: 'application/vnd.github.preview'
+        // For getting topics, see note on https://developer.github.com/v3/search/
+        Accept: 'application/vnd.github.mercy-preview+json'
+        // Accept: 'application/vnd.github.preview'
     }
 }
 
@@ -49,14 +51,16 @@ const fetchRepos = () => {
                 html_url,
                 stargazers_count,
                 forks_count,
-                fork
+                fork,
+                topics
             }) => ({
                 name,
                 description,
                 url: html_url,
                 stars: stargazers_count,
                 forks: forks_count,
-                is_fork: fork
+                is_fork: fork,
+                topics
             })).sort((p1, p2) =>
                 p2.stars - p1.stars
             )
