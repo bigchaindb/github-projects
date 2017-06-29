@@ -26,7 +26,12 @@ Endpoint: [`https://bigchaindb-github.now.sh`](https://bigchaindb-github.now.sh)
     "forks": 293,
     "is_fork": false,
     "release": "v0.10.0",
-    "url": "https://github.com/bigchaindb/project"
+    "url": "https://github.com/bigchaindb/project",
+    "topics": [
+      "bigchaindb",
+      "bigchaindb-driver",
+      "python"
+    ]
   }
 ]
 ```

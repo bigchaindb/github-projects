@@ -6,7 +6,7 @@ let data = []
 let dataRepos = []
 let dataReleases = []
 
-const username = 'bigchaindb'
+const orgname = 'bigchaindb'
 const reponame = 'bigchaindb' // Used for fetching specific release
 
 const log = text => console.log(text)
@@ -20,21 +20,23 @@ const handleResponse = res => {
     return res.json()
 }
 
-// Request headers for all fetch calls
-const headers = [{
+// Request options for all fetch calls
+const options = {
     headers: {
-        Accept: 'application/vnd.github.preview'
+        // For getting topics, see note on https://developer.github.com/v3/search/
+        Accept: 'application/vnd.github.mercy-preview+json'
+        // Accept: 'application/vnd.github.preview'
     }
-}]
+}
 
 //
 // Fetch all public GitHub repos
 //
 const fetchRepos = () => {
     const start = Date.now()
-    const url = 'https://api.github.com/users/' + username + '/repos'
+    const url = 'https://api.github.com/orgs/' + orgname + '/repos'
 
-    fetch(url, headers)
+    fetch(url, options)
         .then(res => {
             return handleResponse(res)
         })
@@ -49,14 +51,16 @@ const fetchRepos = () => {
                 html_url,
                 stargazers_count,
                 forks_count,
-                fork
+                fork,
+                topics
             }) => ({
                 name,
                 description,
                 url: html_url,
                 stars: stargazers_count,
                 forks: forks_count,
-                is_fork: fork
+                is_fork: fork,
+                topics
             })).sort((p1, p2) =>
                 p2.stars - p1.stars
             )
@@ -79,7 +83,7 @@ const fetchReleases = () => {
     const start = Date.now()
     const url = 'https://api.github.com/repos/bigchaindb/' + reponame + '/releases/latest'
 
-    fetch(url, headers)
+    fetch(url, options)
         .then(res => {
             return handleResponse(res)
         })
