@@ -61,9 +61,7 @@ const fetchRepos = () => {
                 forks: forks_count,
                 is_fork: fork,
                 topics
-            })).sort((p1, p2) =>
-                p2.stars - p1.stars
-            )
+            })).sort((p1, p2) => p2.stars - p1.stars)
 
             log(`Re-built projects cache. ` +
                 `Total: ${data_.length} public BigchainDB projects. ` +
