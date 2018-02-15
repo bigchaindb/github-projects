@@ -25,7 +25,7 @@
     "ava": "^0.25.0",
     "request-promise": "^4.2.1",
     "test-listen": "^1.0.2",
-    "xo": "^0.18.2"
+    "xo": "^0.20.0"
   },
   "now": {
     "alias": "bigchaindb-github.now.sh",
