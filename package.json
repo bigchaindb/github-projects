@@ -19,13 +19,13 @@
     "micro": "9.1.4",
     "ms": "2.1.1",
     "node-fetch": "2.1.2",
-    "request": "^2.81.0"
+    "request": "^2.85.0"
   },
   "devDependencies": {
     "ava": "^0.25.0",
     "request-promise": "^4.2.1",
-    "test-listen": "^1.0.2",
-    "xo": "^0.20.2"
+    "test-listen": "^1.1.0",
+    "xo": "^0.20.3"
   },
   "now": {
     "alias": "bigchaindb-github.now.sh",

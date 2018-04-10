@@ -92,7 +92,8 @@ const fetchReleases = () => {
 
             dataReleases = ({
                 name: reponame,
-                release: data_.tag_name
+                release: data_.tag_name,
+                release_url: data_.html_url
             })
 
             log(`Re-built releases cache. ` +
