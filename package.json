@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "chalk": "2.4.1",
-    "micro": "9.3.2",
+    "micro": "9.3.3",
     "ms": "2.1.1",
     "node-fetch": "2.2.0",
     "request": "^2.85.0"
