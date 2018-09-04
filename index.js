@@ -63,12 +63,12 @@ const fetchRepos = () => {
                 topics
             })).sort((p1, p2) => p2.stars - p1.stars)
 
-            log(`Re-built projects cache. ` +
+            log('Re-built projects cache. ' +
                 `Total: ${data_.length} public BigchainDB projects. ` +
                 `Elapsed: ${(new Date() - start)}ms`)
         })
-        .catch(err => {
-            logError('Error parsing response from GitHub: ' + err.stack)
+        .catch(error => {
+            logError('Error parsing response from GitHub: ' + error.stack)
         })
 }
 
@@ -96,12 +96,12 @@ const fetchReleases = () => {
                 release_url: data_.html_url
             })
 
-            log(`Re-built releases cache. ` +
+            log('Re-built releases cache. ' +
                 `Latest release: ${data_.tag_name}. ` +
                 `Elapsed: ${(new Date() - start)}ms`)
         })
-        .catch(err => {
-            logError('Error parsing response from GitHub: ' + err.stack)
+        .catch(error => {
+            logError('Error parsing response from GitHub: ' + error.stack)
         })
 }
 
@@ -125,7 +125,7 @@ module.exports = async (req, res) => {
 
     // Merge the responses together
     // kinda hacky, needs rewrite for adding release info to all objects in dataRepos
-    data = Object.assign(dataReleases, dataRepos[0])
+    data = await Object.assign(dataReleases, dataRepos[0])
     data = Object.assign(dataRepos, {0: data})
 
     // Make json pretty again.

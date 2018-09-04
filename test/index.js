@@ -5,7 +5,7 @@ import request from 'request-promise'
 
 test('it works', async t => {
     const service = micro(async (req, res) => {
-        micro.send(res, 200, {
+        await micro.send(res, 200, {
             test: 'woot'
         })
     })
