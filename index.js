@@ -17,6 +17,7 @@ const handleResponse = res => {
     if (res.status !== 200) {
         return logError('Non-200 response code from GitHub: ' + res.status)
     }
+
     return res.json()
 }
 
