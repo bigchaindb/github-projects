@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "alias": "bigchaindb-github.now.sh",
+  "env": {
+    "NODE_ENV": "production"
+  },
+  "builds": [
+    {
+      "src": "index.js",
+      "use": "@now/node"
+    }
+  ]
+}

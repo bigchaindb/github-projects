@@ -1,10 +1,5 @@
 const fetch = require('node-fetch')
-const ms = require('ms')
 const chalk = require('chalk')
-
-let data = []
-let dataRepos = []
-let dataReleases = []
 
 const orgname = 'bigchaindb'
 const reponame = 'bigchaindb' // Used for fetching specific release
@@ -13,12 +8,13 @@ const log = text => console.log(text)
 const logError = text => console.log(chalk.bold.red(text))
 
 // Response handling for all fetch calls
-const handleResponse = res => {
-    if (res.status !== 200) {
-        return logError('Non-200 response code from GitHub: ' + res.status)
+const handleResponse = async response => {
+    if (response.status !== 200) {
+        return logError('Non-200 response code from GitHub: ' + response.status)
     }
 
-    return res.json()
+    const json = await response.json()
+    return json
 }
 
 // Request options for all fetch calls
@@ -33,44 +29,35 @@ const options = {
 //
 // Fetch all public GitHub repos
 //
-const fetchRepos = () => {
+const fetchRepos = async () => {
     const start = Date.now()
     const url = 'https://api.github.com/orgs/' + orgname + '/repos'
 
-    fetch(url, options)
-        .then(res => {
-            return handleResponse(res)
-        })
-        .then(data_ => {
-            if (!data_) {
-                return
-            }
+    const response = await fetch(url, options)
+    const json = await handleResponse(response)
 
-            dataRepos = data_.map(({
-                name,
-                description,
-                html_url,
-                stargazers_count,
-                forks_count,
-                fork,
-                topics
-            }) => ({
-                name,
-                description,
-                url: html_url,
-                stars: stargazers_count,
-                forks: forks_count,
-                is_fork: fork,
-                topics
-            })).sort((p1, p2) => p2.stars - p1.stars)
+    const repos = json.map(({
+        name,
+        description,
+        html_url,
+        stargazers_count,
+        forks_count,
+        fork,
+        topics
+    }) => ({
+        name,
+        description,
+        url: html_url,
+        stars: stargazers_count,
+        forks: forks_count,
+        is_fork: fork,
+        topics
+    })).sort((p1, p2) => p2.stars - p1.stars)
 
-            log('Re-built projects cache. ' +
-                `Total: ${data_.length} public BigchainDB projects. ` +
-                `Elapsed: ${(new Date() - start)}ms`)
-        })
-        .catch(error => {
-            logError('Error parsing response from GitHub: ' + error.stack)
-        })
+    log(`Total: ${repos.length} public BigchainDB projects. ` +
+        `Elapsed: ${(new Date() - start)}ms`)
+
+    return repos
 }
 
 //
@@ -78,59 +65,48 @@ const fetchRepos = () => {
 //
 // @TODO: make this fetch all releases of all repos
 //
-const fetchReleases = () => {
+const fetchReleases = async () => {
     const start = Date.now()
     const url = 'https://api.github.com/repos/bigchaindb/' + reponame + '/releases/latest'
 
-    fetch(url, options)
-        .then(res => {
-            return handleResponse(res)
-        })
-        .then(data_ => {
-            if (!data_) {
-                return
-            }
+    const response = await fetch(url, options)
+    const json = await handleResponse(response)
 
-            dataReleases = ({
-                name: reponame,
-                release: data_.tag_name,
-                release_url: data_.html_url
-            })
+    const releases = ({
+        name: reponame,
+        release: json.tag_name,
+        release_url: json.html_url
+    })
 
-            log('Re-built releases cache. ' +
-                `Latest release: ${data_.tag_name}. ` +
-                `Elapsed: ${(new Date() - start)}ms`)
-        })
-        .catch(error => {
-            logError('Error parsing response from GitHub: ' + error.stack)
-        })
+    log(`Latest release: ${json.tag_name}. ` +
+        `Elapsed: ${(new Date() - start)}ms`)
+
+    return releases
 }
-
-const engage = () => {
-    fetchRepos()
-    fetchReleases()
-}
-
-//
-// Let's roll, and roll again every X ms
-//
-engage()
-setInterval(engage, ms('15m'))
 
 //
 // Create the response
 //
-module.exports = async (req, res) => {
-    res.setHeader('Access-Control-Allow-Origin', '*')
-    res.setHeader('Access-Control-Allow-Methods', 'GET')
+module.exports = async (request, response) => {
+    response.setHeader('Access-Control-Allow-Origin', '*')
+    response.setHeader('Access-Control-Allow-Methods', 'GET')
 
-    // Merge the responses together
-    // kinda hacky, needs rewrite for adding release info to all objects in dataRepos
-    data = await Object.assign(dataReleases, dataRepos[0])
-    data = Object.assign(dataRepos, {0: data})
+    //
+    // Let's roll
+    //
+    try {
+        const repos = await fetchRepos()
+        const releases = await fetchReleases()
 
-    // Make json pretty again.
-    data = JSON.stringify(data, null, 2)
+        // Merge the responses together
+        // kinda hacky, needs rewrite for adding release info to all objects in dataRepos
+        let data
+        data = await Object.assign(releases, repos[0])
+        data = Object.assign(repos, {0: data})
+        const dataPretty = JSON.stringify(data, null, 2)
 
-    return data
+        response.end(dataPretty)
+    } catch (error) {
+        logError('Error parsing response from GitHub: ' + error.message)
+    }
 }

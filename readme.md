@@ -61,7 +61,13 @@ npm test
 
 ## Deployment
 
-Deploy to [now](https://zeit.co/now), make sure to switch to BigchainDB org before deploying:
+Every branch is automatically deployed to [Vercel](https://vercel.com) with their GitHub integration. A link to a deployment will appear under each Pull Request.
+
+The latest deployment of the `master` branch is automatically aliased to `bigchaindb-github.now.sh`, configured as `alias` in [`vercel.json`](vercel.json).
+
+### Manual Deployment
+
+If needed, app can be deployed manually. Make sure to switch to Ocean Protocol org before deploying:
 
 ```bash
 # first run

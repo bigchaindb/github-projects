@@ -1,10 +1,10 @@
 {
-  "name": "bigchaindb-github-projects",
-  "private": true,
+  "name": "@bigchaindb/github-projects",
   "version": "1.0.0",
+  "main": "index.js",
   "scripts": {
-    "start": "micro",
-    "test": "xo && ava"
+    "start": "vercel dev",
+    "test": "xo"
   },
   "xo": {
     "esnext": true,
@@ -15,22 +15,12 @@
     }
   },
   "dependencies": {
-    "chalk": "2.4.2",
-    "micro": "9.3.4",
-    "ms": "2.1.1",
-    "node-fetch": "2.6.0",
+    "chalk": "^4.0.0",
+    "micro": "^9.3.4",
+    "node-fetch": "^2.6.0",
     "request": "^2.88.0"
   },
   "devDependencies": {
-    "ava": "^1.0.1",
-    "request-promise": "^4.2.1",
-    "test-listen": "^1.1.0",
-    "xo": "^0.24.0"
-  },
-  "now": {
-    "alias": "bigchaindb-github.now.sh",
-    "env": {
-      "NODE_ENV": "production"
-    }
+    "xo": "^0.30.0"
   }
 }
